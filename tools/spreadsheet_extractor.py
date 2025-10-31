@@ -98,7 +98,7 @@ class SpreadsheetExtractorTool(Tool):
         try:
             field_mapping = handler_input(tool_parameters["table_fields"])
             result = read_table_file_to_objects(tool_parameters["file"], field_mapping)
-            output = {"results": result}
+            output = {"result": result}
             yield self.create_json_message(output)
             yield self.create_text_message(json.dumps(output, ensure_ascii=False))
         except Exception as e:
