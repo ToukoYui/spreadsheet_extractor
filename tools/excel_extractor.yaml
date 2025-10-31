@@ -1,0 +1,39 @@
+identity:
+  name: "spreadsheet_extractor"
+  author: "toukoyui"
+  label:
+    en_US: "spreadsheet_extractor"
+    zh_Hans: "spreadsheet_extractor"
+description:
+  human:
+    en_US: "A tool that can help you convert uploaded spreadsheet into object lists, where you can choose the column content to export on your own."
+    zh_Hans: "一个能够帮助你将上传的表格转化成对象列表的工具，你可以自行选择要导出的列内容。"
+  llm: "A tool that can help you convert uploaded spreadsheet into object lists, where you can choose the column content to export on your own."
+parameters:
+  - name: file
+    type: file
+    required: true
+    form: form
+    label:
+      en_US: The uploaded form
+      zh_Hans: 上传表格
+    human_description:
+      en_US: file
+      zh_Hans: 表格文件，类型可以是csv、xls、xlsx
+    llm_description: 表格文件，类型可以是csv、xls、xlsx
+  - name: table_fields
+    type: string
+    required: true
+    form: form
+    placeholder: {表格列名:变量名}
+    label:
+      en_US: Column name variable name mapping
+      zh_Hans: 列名-变量名映射
+    human_description:
+      en_US: Fill in "Column Name" and "Variable Name" in JSON format, where the column name is the name of each column in the table and the variable name is the desired output alias.
+      zh_Hans: 以json的形式填入{"列名":"变量名"}，列名为表格每一列的名称，变量名为你希望的输出别名。
+    llm_description: 以json的形式填入{"列名":"变量名"}，列名为表格每一列的名称，变量名为你希望的输出别名。
+
+extra:
+  python:
+    source: tools/spreadsheet_extractor.py
