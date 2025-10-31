@@ -93,12 +93,13 @@ def read_table_file_to_objects(file: File, field_mapping: Dict[str, str]) -> Lis
     return df.to_dict(orient='records')
 
 
-class spreadsheetExtractorTool(Tool):
+class SpreadsheetExtractorTool(Tool):
     def _invoke(self, tool_parameters: Dict[str, Any]) -> Generator[ToolInvokeMessage]:
         try:
             field_mapping = handler_input(tool_parameters["table_fields"])
             result = read_table_file_to_objects(tool_parameters["file"], field_mapping)
-            # yield self.create_json_message(json.dumps(result,ensure_ascii=False))
-            yield self.create_text_message(json.dumps(result, ensure_ascii=False))
+            output = {"results": result}
+            yield self.create_json_message(output)
+            yield self.create_text_message(json.dumps(output, ensure_ascii=False))
         except Exception as e:
             yield self.create_text_message(f"Error: {str(e)}")
